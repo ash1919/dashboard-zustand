@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { CgCloseO } from "react-icons/cg";
+import postUser from "../../api/postUser";
 import usetableData from "../../app/tableData";
 
 type Props = {
@@ -7,24 +8,38 @@ type Props = {
   onClose: () => void;
   id: number | string;
 };
-const handleSubmit = (e: React.SyntheticEvent) => {
-  e.preventDefault();
-  // console.log(e.target);
-  usetableData();
-};
-const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
-  e.preventDefault();
 
-};
-const modal = (props: Props) => {
+const Modal = (props: Props) => {
   const { open, onClose, id } = props;
   const fetchTableData = usetableData((state) => state.getApiData);
   const tableDatas = usetableData((state) => state.tableData);
+
   const filteredData = tableDatas.filter((data) => id === data._id);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const editTableData = usetableData((state) => state.editTableData);
+
+  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    editTableData(e.currentTarget.name as any, e.currentTarget.value, id);
+  };
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const dataFormat = {
+      firstname: filteredData[0].firstname,
+      lastname: filteredData[0].lastname,
+      age: filteredData[0].age,
+      email: filteredData[0].email,
+      phoneNumber: filteredData[0].phoneNumber,
+      password: filteredData[0].password,
+    };
+    console.log(dataFormat);
+    postUser(dataFormat);
+  };
+
   useEffect(() => {
     fetchTableData();
   }, [open, fetchTableData]);
+
   if (!open) return null;
   return (
     <>
@@ -42,6 +57,7 @@ const modal = (props: Props) => {
           <form
             className="flex flex-col gap-y-8"
             onSubmit={(e) => handleSubmit(e)}
+            key={data._id}
           >
             <div className="flex gap-x-2 items-center justify-around">
               <div className="flex flex-col items-start justify-start gap-x-2">
@@ -53,7 +69,7 @@ const modal = (props: Props) => {
                   value={data.firstname}
                   placeholder="Enter your first name"
                   className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
-                  onChange={(e) => handleSubmit(e)}
+                  onChange={(e) => handleInputChange(e)}
                 />
               </div>
               <div className="flex flex-col items-start justify-start gap-x-2">
@@ -65,6 +81,7 @@ const modal = (props: Props) => {
                   value={data.lastname}
                   placeholder="Enter your last name"
                   className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
+                  onChange={(e) => handleInputChange(e)}
                 />
               </div>
             </div>
@@ -78,6 +95,7 @@ const modal = (props: Props) => {
                   value={data.email}
                   placeholder="Enter your email"
                   className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
+                  onChange={(e) => handleInputChange(e)}
                 />
               </div>
               <div className="flex flex-col items-start justify-start gap-x-2">
@@ -89,6 +107,7 @@ const modal = (props: Props) => {
                   value={data.phoneNumber}
                   placeholder="Enter your phone no"
                   className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
+                  onChange={(e) => handleInputChange(e)}
                 />
               </div>
             </div>
@@ -102,6 +121,7 @@ const modal = (props: Props) => {
                 value={data.age}
                 placeholder="Enter your age"
                 className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
+                onChange={(e) => handleInputChange(e)}
               />
             </div>
             <button
@@ -117,4 +137,4 @@ const modal = (props: Props) => {
   );
 };
 
-export default modal;
+export default Modal;
