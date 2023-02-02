@@ -1,9 +1,6 @@
-import axios from "axios";
-import BASE_API_URL from "../utils/env.contants.utils";
+import { _patch } from "./interceptor";
 
-const PostUser = async (dataFormat: any) => {
-  const url = `${BASE_API_URL}/update`;
-  const res = await axios.post(url, dataFormat);
-  console.log(res);
+const PostUser = async (id: string | number, dataFormat: any) => {
+  return _patch(`user/${id}`, dataFormat);
 };
 export default PostUser;

@@ -22,18 +22,17 @@ const Modal = (props: Props) => {
     editTableData(e.currentTarget.name as any, e.currentTarget.value, id);
   };
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const dataFormat = {
-      firstname: filteredData[0].firstname,
-      lastname: filteredData[0].lastname,
+      firstName: filteredData[0].firstName,
+      lastName: filteredData[0].lastName,
       age: filteredData[0].age,
-      email: filteredData[0].email,
       phoneNumber: filteredData[0].phoneNumber,
-      password: filteredData[0].password,
     };
     console.log(dataFormat);
-    postUser(dataFormat);
+    const res = await postUser(id, dataFormat);
+    if (res) onClose();
   };
 
   useEffect(() => {
@@ -66,7 +65,7 @@ const Modal = (props: Props) => {
                 <input
                   type="text"
                   name="firstname"
-                  value={data.firstname}
+                  value={data.firstName}
                   placeholder="Enter your first name"
                   className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
                   onChange={(e) => handleInputChange(e)}
@@ -78,7 +77,7 @@ const Modal = (props: Props) => {
                 <input
                   type="text"
                   name="lastname"
-                  value={data.lastname}
+                  value={data.lastName}
                   placeholder="Enter your last name"
                   className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
                   onChange={(e) => handleInputChange(e)}

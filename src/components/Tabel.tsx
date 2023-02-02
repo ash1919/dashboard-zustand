@@ -19,57 +19,87 @@ const Tabel = () => {
 
   useEffect(() => {
     fetchTableData();
-  }, []);
+  }, [isClose]);
   return (
     <section>
       <div className="container mx-auto max-w-7xl px-6 text-white">
+        <div className="pb-10 flex items-start justify-between">
+          <button
+            type="button"
+            className="px-5 py-2 bg-yellow-500 text-black rounded-lg"
+          >
+            Add user
+          </button>
+          <button
+            type="button"
+            className="px-3 py-1 border border-white rounded-md"
+          >
+            filter
+          </button>
+        </div>
         <div>
-          <table>
+          <table className="w-full">
             <thead className="border-b-2 border-gray-400">
               <tr>
                 <th className="py-2 px-8">Sr.No</th>
                 <th className="py-2 px-8">First Name</th>
                 <th className="py-2 px-8">Last Name</th>
                 <th className="py-2 px-8">Age</th>
-                <th className="py-2 px-8">Email</th>
                 <th className="py-2 px-8">Contact No</th>
                 <th className="py-2 px-8">Edit</th>
                 <th className="py-2 px-8">Delete</th>
               </tr>
             </thead>
-            {tableDatas.map((data) => (
-              <tbody className="border-b border-gray-400" key={data._id}>
-                <tr>
-                  <td className="py-4 px-8">{data._id}</td>
-                  <td className="py-4 px-8">{data.firstname}</td>
-                  <td className="py-4 px-8">{data.lastname}</td>
-                  <td className="py-4 px-8">{data.age}</td>
-                  <td className="py-4 px-8">{data.email}</td>
-                  <td className="py-4 px-8">{data.phoneNumber}</td>
+            {tableDatas &&
+              tableDatas
+                .sort((data1: any, data2: any) => {
+                  const data1Title = data1?.firstName?.toLowerCase();
+                  const data2Title = data2?.firstName?.toLowerCase();
+                  return data2Title > data1Title
+                    ? -1
+                    : data1Title > data2Title
+                    ? 1
+                    : 0;
+                })
+                .map((data) => (
+                  <tbody className="border-b border-gray-400" key={data._id}>
+                    <tr>
+                      <td className="py-4 px-8">{data._id}</td>
+                      <td className="py-4 px-8">{data?.firstName}</td>
+                      <td className="py-4 px-8">{data?.lastName}</td>
+                      <td className="py-4 px-8">{data.age}</td>
+                      <td className="py-4 px-8">{data.phoneNumber}</td>
 
-                  <td className="py-4 px-8">
-                    <button
-                      className="cursor-pointer edit-modal"
-                      onClick={() => handleClick(data._id)}
-                    >
-                      <FaEdit />
-                    </button>
-                  </td>
-                  <td className="py-4 px-8">
-                    {" "}
-                    <button
-                      className="cursor-pointer"
-                      onClick={() => setIsClose(true)}
-                    >
-                      <MdDeleteForever className="text-xl" />
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            ))}
+                      <td className="py-4 px-8">
+                        <button
+                          className="cursor-pointer edit-modal"
+                          onClick={() => handleClick(data._id)}
+                        >
+                          <FaEdit />
+                        </button>
+                      </td>
+                      <td className="py-4 px-8">
+                        {" "}
+                        <button
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setIsClose(true);
+                            setTableId(data._id);
+                          }}
+                        >
+                          <MdDeleteForever className="text-xl" />
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                ))}
           </table>
           <Modal open={isOpen} onClose={() => setIsOpen(false)} id={tableId} />
-          <DeleteModal open={isClose} onClose={() => setIsClose(false)} />
+          <DeleteModal
+            open={isClose}
+            onClose={() => setIsClose(false)}
+            id={tableId}
+          />
         </div>
       </div>
     </section>
