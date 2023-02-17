@@ -10,7 +10,6 @@ interface TableDataResponseObject {
     email: string;
     firstName: string;
     lastName: string;
-    password: string;
     phoneNumber: number;
     _v: number;
     _id: number;

@@ -43,8 +43,8 @@ const _get = async (url: string) => {
   return get;
 };
 
-const _post = async (url: string) => {
-  const post = await fetchData.post(url);
+const _post = async (url: string, data: any) => {
+  const post = await fetchData.post(url, data);
   return post;
 };
 

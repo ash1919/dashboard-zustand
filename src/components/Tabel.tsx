@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import AddUser from "../api/addUser";
 import usetableData from "../app/tableData";
+import AddUserModal from "./common/AddUserModal";
 import DeleteModal from "./common/DeleteModal";
 import Modal from "./common/Modal";
 
@@ -9,6 +11,7 @@ const Tabel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [tableId, setTableId] = useState(0);
   const [isClose, setIsClose] = useState(false);
+  const [addUserModal, setAddUserModal] = useState(false);
   const fetchTableData = usetableData((state) => state.getApiData);
   const tableDatas = usetableData((state) => state.tableData);
 
@@ -27,6 +30,7 @@ const Tabel = () => {
           <button
             type="button"
             className="px-5 py-2 bg-yellow-500 text-black rounded-lg"
+            onClick={() => setAddUserModal(true)}
           >
             Add user
           </button>
@@ -99,6 +103,10 @@ const Tabel = () => {
             open={isClose}
             onClose={() => setIsClose(false)}
             id={tableId}
+          />
+          <AddUserModal
+            open={addUserModal}
+            onClose={() => setAddUserModal(false)}
           />
         </div>
       </div>
