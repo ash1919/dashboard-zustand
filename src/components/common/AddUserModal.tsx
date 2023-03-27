@@ -75,23 +75,6 @@ const AddUserModal = (props: Props) => {
           <div className="flex gap-x-8 items-center justify-around">
             <div className="flex flex-col items-start justify-start gap-x-2">
               {" "}
-              <div className="text-lg font-medium">Email</div>
-              <input
-                type="email"
-                name="email"
-                value={userData?.email}
-                placeholder="Enter your email"
-                className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
-                onChange={(e) =>
-                  setUserData({
-                    ...userData,
-                    email: e.currentTarget.value,
-                  })
-                }
-              />
-            </div>
-            <div className="flex flex-col items-start justify-start gap-x-2">
-              {" "}
               <div className="text-lg font-medium">Phone</div>
               <input
                 type="tel"
@@ -107,25 +90,25 @@ const AddUserModal = (props: Props) => {
                 }
               />
             </div>
+            <div className="flex flex-col items-start gap-x-2 ">
+              {" "}
+              <div className="text-lg font-medium">Age</div>
+              <input
+                type="text"
+                name="age"
+                value={userData?.age}
+                placeholder="Enter your age"
+                className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
+                onChange={(e) =>
+                  setUserData({
+                    ...userData,
+                    age: e.currentTarget.value,
+                  })
+                }
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col items-start ml-20 gap-x-2 ">
-            {" "}
-            <div className="text-lg font-medium">Age</div>
-            <input
-              type="text"
-              name="age"
-              value={userData?.age}
-              placeholder="Enter your age"
-              className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
-              onChange={(e) =>
-                setUserData({
-                  ...userData,
-                  age: e.currentTarget.value,
-                })
-              }
-            />
-          </div>
           <button
             type="submit"
             className="bg-[#FFEE58]  mt-4 py-2 w-24 mx-auto rounded-lg text-black font-semibold"

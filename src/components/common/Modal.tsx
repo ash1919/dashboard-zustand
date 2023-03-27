@@ -84,19 +84,7 @@ const Modal = (props: Props) => {
                 />
               </div>
             </div>
-            <div className="flex gap-x-8 items-center justify-around">
-              <div className="flex flex-col items-start justify-start gap-x-2">
-                {" "}
-                <div className="text-lg font-medium">Email</div>
-                <input
-                  type="email"
-                  name="email"
-                  value={data.email}
-                  placeholder="Enter your email"
-                  className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
-                  onChange={(e) => handleInputChange(e)}
-                />
-              </div>
+            <div className="flex items-center justify-around">
               <div className="flex flex-col items-start justify-start gap-x-2">
                 {" "}
                 <div className="text-lg font-medium">Phone</div>
@@ -109,20 +97,20 @@ const Modal = (props: Props) => {
                   onChange={(e) => handleInputChange(e)}
                 />
               </div>
+              <div className="flex flex-col items-start gap-x-2 ">
+                {" "}
+                <label className="text-lg font-medium">Age</label>
+                <input
+                  type="text"
+                  name="age"
+                  value={data.age}
+                  placeholder="Enter your age"
+                  className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
+                  onChange={(e) => handleInputChange(e)}
+                />
+              </div>
             </div>
 
-            <div className="flex flex-col items-start ml-20 gap-x-2 ">
-              {" "}
-              <div className="text-lg font-medium">Age</div>
-              <input
-                type="text"
-                name="age"
-                value={data.age}
-                placeholder="Enter your age"
-                className="px-6 py-2 rounded-md bg-slate-800 border border-gray-600 shadow-md placeholder:text-gray-300"
-                onChange={(e) => handleInputChange(e)}
-              />
-            </div>
             <button
               type="submit"
               className="bg-[#FFEE58]  mt-4 py-2 w-24 mx-auto rounded-lg text-black font-semibold"
