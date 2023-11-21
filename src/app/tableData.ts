@@ -1,5 +1,3 @@
-import { stringify } from "querystring";
-import React from "react";
 import { toast } from "react-toastify";
 import create from "zustand";
 import FetchUser from "../api/fetchUser";
@@ -32,7 +30,7 @@ const usetableData = create<TableDataResponseObject>((set) => ({
         set((state) => (state.tableData = res?.data.data));
       }
     } catch (error) {
-      toast.error("error");
+      toast.error("Something went wrong, Try again later");
     }
   },
 
