@@ -23,6 +23,7 @@ const Tabel = () => {
   useEffect(() => {
     fetchTableData();
   }, [isClose]);
+
   return (
     <section>
       <div className="container mx-auto max-w-7xl px-6 text-white">

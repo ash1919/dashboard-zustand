@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 import { CgCloseO } from "react-icons/cg";
+import usetableData from "../../app/tableData";
+import AddUser from "../../api/addUser";
 
 type Props = { open: boolean; onClose: () => void };
 
 const AddUserModal = (props: Props) => {
   const { open, onClose } = props;
+  const fetchTableData = usetableData((state) => state.getApiData);
+  const tableDatas = usetableData((state) => state.tableData);
+
   const [userData, setUserData] = useState({
     age: "",
-    email: "",
     firstName: "",
     lastName: "",
     phoneNumber: "",
   });
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(userData);
+    const res = await AddUser(userData);
+    if (res) onClose();
   };
 
   if (!open) return null;
+
   return (
     <>
       <div className="modal_overlay " />

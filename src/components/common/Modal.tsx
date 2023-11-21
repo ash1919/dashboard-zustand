@@ -30,7 +30,7 @@ const Modal = (props: Props) => {
       age: filteredData[0].age,
       phoneNumber: filteredData[0].phoneNumber,
     };
-    console.log(dataFormat);
+
     const res = await postUser(id, dataFormat);
     if (res) onClose();
   };
@@ -40,6 +40,7 @@ const Modal = (props: Props) => {
   }, [open, fetchTableData]);
 
   if (!open) return null;
+
   return (
     <>
       <div className="modal_overlay " />
