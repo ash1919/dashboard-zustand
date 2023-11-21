@@ -22,7 +22,7 @@ const Tabel = () => {
 
   useEffect(() => {
     fetchTableData();
-  }, [isClose]);
+  }, [isClose, tableDatas]);
 
   return (
     <section>
